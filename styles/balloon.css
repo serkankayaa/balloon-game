@@ -1,29 +1,8 @@
 body {
-    background-image: url('../img/game_background.png');
+    background-image: url('../img/game-background.jpg');
     background-repeat: no-repeat;
 }
 
-.balloon1, .balloon2, .balloon3, .balloon4 {
-    background-image: url('../img/balloons.png');
-    background-repeat: no-repeat;
-}
-
-.balloon1 {
-    height: 140px;
-    background-position: -5px -5px;
-}
-
-.balloon2 {
-    height: 140px;
-    background-position: -5px -160px;
-}
-
-.balloon3 {
-    height: 140px;
-    background-position: -5px -320px;
-}
-
-.balloon4 {
-    height: 140px;
-    background-position: -5px -480px;
+.container {
+    height: 600px;
 }
