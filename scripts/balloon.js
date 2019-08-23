@@ -2,7 +2,7 @@ $(document).ready(function () {
     var game = {
         operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 42,
-        balloonImage: '../img/balloons2.png',
+        balloonImage: 'img/balloons2.png',
         balloonCount: 4,
         balloonHeight: 140,
         balloonWidth: 120,
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     function boomEffect(balloonId) {
         $(balloonId).css({
-            'background-image': 'url(../img/boom.gif)',
+            'background-image': 'url(img/boom.gif)',
             'background-position': '0 0'
         });
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
         })
 
         $('body').css({
-            'cursor': 'url("../img/cursor.png"), auto',
+            'cursor': 'url("img/cursor.png"), auto',
         })
     }
 
