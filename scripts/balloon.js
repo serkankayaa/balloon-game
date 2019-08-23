@@ -1,17 +1,28 @@
 $(document).ready(function () {
+    var game = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 42,
+        balloonImage: '../img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [12, 15, 20, 7]
+    };
+
     var balloons = [];
     var selectedBalloons = [];
-    var balloonCount = 4;
-    var imageURL = "../img/balloons.png";
-    var balloonHeight = 140;
-    var balloonWidth = 120;
-    var internalPosition = -5;
     var gameHeight = $('.container').height();
+    var resultValues = [];
+    $('.resultNumber').html(game.resultNumber);
 
     prepareBalloons();
+    loadGameStyle();
+
+    console.log("oyun --" + $('.gamePanel').outerHeight());
 
     function prepareBalloons() {
-        for (let i = 1; i <= balloonCount; i++) {
+        for (let i = 0; i < game.balloonCount; i++) {
             var blnAlignLimit = 0;
 
             if (i % 2 == 0) {
@@ -19,7 +30,7 @@ $(document).ready(function () {
             }
 
             var balloonHtml = "<div class='col-md-3 mt-" + blnAlignLimit + "'>" +
-                "<div id='balloon" + i + "' class='blnShape'></div></div>";
+                "<div id='balloon" + i + "' class='blnShape' value='" + game.balloonValues[i] + "'><span class='text-center balloonNumber'>" + game.balloonValues[i] + "</span></div></div>";
             $(".bln").append(balloonHtml);
         }
 
@@ -30,48 +41,113 @@ $(document).ready(function () {
             balloons.sort();
         });
 
-        balloons.forEach(balloon => {
+        balloons.forEach(function (balloon) {
             var balloonId = "#" + balloon;
-            blnPosition = internalPosition + "px";
+            blnPosition = game.internalPosition + "px";
 
             $(balloonId).css({
-                'background-image': 'url("' + imageURL + '")',
+                'background-image': 'url("' + game.balloonImage + '")',
                 'background-repeat': 'no-repeat',
-                'height': balloonHeight + "px",
-                'width': balloonWidth + "px",
+                'height': game.balloonHeight + "px",
+                'width': game.balloonWidth + "px",
                 'background-position': '-5px ' + blnPosition
             });
 
-            internalPosition -= 160;
+            game.internalPosition -= 160;
 
             moveBalloon(balloonId);
+            // setInterval(function () {
+            
+            // }, 1000);
         });
-
     }
 
     function moveBalloon(balloonId) {
         $(balloonId).animate({
             marginTop: gameHeight,
         }, 4000);
+
     }
 
-    balloons.forEach(balloon => {
+    balloons.forEach(function (balloon) {
         var balloonId = "#" + balloon;
         $(balloonId).click(function () {
             boomEffect(balloonId);
             selectedBalloons.push(balloon);
-            
+            checkBalloonCalculate(balloonId);
         })
     });
 
     function boomEffect(balloonId) {
         $(balloonId).css({
-            'background-image' : 'url(../img/boom.gif)',
-            'background-position' : '0 0'
+            'background-image': 'url(../img/boom.gif)',
+            'background-position': '0 0'
         });
+
+        $(balloonId + " span").hide();
 
         setTimeout(function () {
             $(balloonId).hide();
-        }, 850);
+        }, 800);
+    }
+
+    function loadGameStyle() {
+        $('.gamePanel').css({
+            'border-radius': '15px',
+            'height': '800px',
+            'background-color': 'inherit!important',
+        });
+
+        $('.resultNumber').css({
+            'font-size': '35px',
+            'color': 'orange',
+            'font-weight': 'bold'
+        })
+
+        $('body').css({
+            'cursor': 'url("../img/cursor.png"), auto',
+        })
+    }
+
+    function checkBalloonCalculate(balloonId) {
+        var value = $(balloonId).attr('value');
+        balloonValue = parseInt(value);
+        var totalValueMulti = 1;
+        var totalValue = 0;
+        resultValues.push(balloonValue);
+
+        for (var i = 0; i < resultValues.length; i++) {
+            if (game.operator == '*') {
+                totalValueMulti *= resultValues[i];
+
+                if (totalValueMulti == game.resultNumber) {
+                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                }
+            }
+
+            if (game.operator == '+') {
+                totalValue += resultValues[i];
+
+                if (totalValue == game.resultNumber) {
+                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                }
+            }
+
+            if (game.operator == '-') {
+                totalValue -= resultValues[i];
+
+                if (totalValue == game.resultNumber) {
+                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                }
+            }
+
+            if (game.operator == '/') {
+                totalValue /= resultValues[i];
+
+                if (totalValue == game.resultNumber) {
+                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                }
+            }
+        }
     }
 });

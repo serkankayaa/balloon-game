@@ -1,8 +1,26 @@
 body {
     background-image: url('../img/game-background.jpg');
     background-repeat: no-repeat;
+    height: 100%; 
+    background-size: cover;
 }
 
 .container {
     height: 600px;
+}
+
+.gamePanel {
+    background-color: inherit!important;
+}
+
+.calcArea {
+    background-color: darkcyan;
+}
+
+.balloonNumber {
+    display: inline-block;
+    margin: 40%;
+    font-size: 20px;
+    font-weight: bold;
+    color: aliceblue;
 }
