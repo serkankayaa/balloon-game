@@ -14,14 +14,13 @@ $(document).ready(function () {
     var selectedBalloons = [];
     var gameHeight = $('.container').height();
     var resultValues = [];
-    $('.resultNumber').html(game.resultNumber);
 
     prepareBalloons();
     loadGameStyle();
 
-    console.log("oyun --" + $('.gamePanel').outerHeight());
-
     function prepareBalloons() {
+        $('.resultNumber').html('"' +game.operator+'" &#8594; ' + game.resultNumber);
+
         for (let i = 0; i < game.balloonCount; i++) {
             var blnAlignLimit = 0;
 
