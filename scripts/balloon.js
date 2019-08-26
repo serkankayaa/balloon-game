@@ -70,7 +70,6 @@ $(document).ready(function () {
     games.sort();
 
     var balloons = [];
-    var settedBalloons = [];
     var gameHeight = $('.container').height();
     var resultValues = [];
     var result = '.resultNumber';
@@ -79,6 +78,8 @@ $(document).ready(function () {
     var checkComplete = false;
     var animateRate = 5800;
     var timeIsOver = false;
+
+    console.log(gameHeight);
 
     //first game
     var game = game1;
