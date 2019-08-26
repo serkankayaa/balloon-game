@@ -1,4 +1,4 @@
-$(window).on('load', function () {
+$(document).ready(function () {
     var game1 = {
         operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 84,
