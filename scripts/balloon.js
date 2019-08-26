@@ -32,8 +32,41 @@ $(document).ready(function () {
         balloonValues: [10, 10, 20, 4]
     };
 
+    var game4 = {
+        operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 120,
+        balloonImage: 'img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [12, 5, 2, 21]
+    };
+
+    var game5 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 55,
+        balloonImage: 'img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [22, 35, 7, 33]
+    };
+
+    var game6 = {
+        operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 400,
+        balloonImage: 'img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [20, 20, 2, 21]
+    };
+
     //all games
-    var games = [game2, game3];
+    var games = [game2, game3, game4, game5, game6];
     games.sort();
 
     var balloons = [];
@@ -103,6 +136,9 @@ $(document).ready(function () {
             var balloonValue;
 
             $(balloonId).click(function () {
+                if (checkComplete) {
+                    return;
+                }
 
                 boomEffect(balloonId);
                 checkBalloonCalculate(balloonId);
@@ -116,7 +152,6 @@ $(document).ready(function () {
                 }
             });
 
-
             var timer = setInterval(function () {
                 var balloonHeight = $(balloonId).offset().top;
 
@@ -126,10 +161,10 @@ $(document).ready(function () {
                     timeIsOver = true;
                 }
 
-                if (!checkComplete && timeIsOver) {
-                    gameover(result);
-                    clearInterval(timer);
-                }
+                // if (!checkComplete && timeIsOver) {
+                //     gameover(result);
+                //     clearInterval(timer);
+                // }
 
             }, 1000);
         });
@@ -143,9 +178,11 @@ $(document).ready(function () {
 
         $(balloonId + " span").hide();
 
-        setTimeout(function () {
-            $(balloonId).hide();
-        }, 800);
+        if (!checkComplete) {
+            setTimeout(function () {
+                $(balloonId).hide();
+            }, 900);
+        }
     }
 
     function loadGameStyle() {
@@ -239,16 +276,22 @@ $(document).ready(function () {
     }
 
     function nextGame() {
-        games.forEach(function (balloonGame) {
+        for (let i = 0; i < games.length; i++) {
             setTimeout(function () {
                 if (checkComplete) {
                     clearGame();
-                    game = balloonGame;
+                    game = games[i];
                     loadGame(game);
+                    games.shift();
                 }
 
-            }, 1600);
-        });
+                if (!checkComplete && timeIsOver) {
+                    gameover(result);
+                    clearInterval(timer);
+                }
+
+            }, 2000);
+        }
     }
 
     function success(result) {
@@ -264,7 +307,7 @@ $(document).ready(function () {
         $(mathOp).append(" ");
 
         $(result).css({
-            'color' : 'maroon',
+            'color': 'maroon',
         });
     }
 });
