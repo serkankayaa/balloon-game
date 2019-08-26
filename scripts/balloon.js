@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(window).on('load', function () {
     var game1 = {
         operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 84,
@@ -71,7 +71,6 @@ $(document).ready(function () {
 
     var balloons = [];
     var gameHeight = $('.container').height();
-    var tempHeight = gameHeight;
     var resultValues = [];
     var result = '.resultNumber';
     var gamePanel = '.gamePanel';
