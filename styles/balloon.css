@@ -7,9 +7,9 @@ body {
     height: auto;
 }
 
-.container {
+/* .container {
     height: 600px;
-}
+} */
 
 .gamePanel {
     background-color: inherit!important;

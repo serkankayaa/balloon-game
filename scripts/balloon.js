@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    $('.container').css({
+        'height' : '600px'
+    });
+
     var game1 = {
         operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 84,
