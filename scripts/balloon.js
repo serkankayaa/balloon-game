@@ -66,7 +66,7 @@ $(document).ready(function () {
     };
 
     $('.container').css({
-        'height' : '600px'
+        'height': '600px'
     });
 
     //all games
@@ -74,16 +74,15 @@ $(document).ready(function () {
     games.sort();
 
     var balloons = [];
-    var gameHeight = $('.container').height();
     var resultValues = [];
+    var selectedBalloons = [];
+    var gameHeight = $('.container').height();
     var result = '.resultNumber';
     var gamePanel = '.gamePanel';
     var mathOp = '.mathOp';
     var checkComplete = false;
     var animateRate = 5800;
     var timeIsOver = false;
-
-    console.log(gameHeight);
 
     //first game
     var game = game1;
@@ -135,6 +134,14 @@ $(document).ready(function () {
         });
     }
 
+    function hasDuplicates(array) {
+        return (new Set(array)).size !== array.length;
+    }
+
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
+
     function balloonClick() {
         balloons.forEach(function (balloon) {
             var balloonId = "#" + balloon;
@@ -142,6 +149,16 @@ $(document).ready(function () {
 
             $(balloonId).click(function () {
                 if (checkComplete) {
+                    return;
+                }
+
+                selectedBalloons.push(balloonId);
+
+                var check = hasDuplicates(selectedBalloons);
+
+                if(check) {
+                    selectedBalloons = selectedBalloons.filter(onlyUnique);
+
                     return;
                 }
 
@@ -165,11 +182,6 @@ $(document).ready(function () {
                     clearInterval(timer);
                     timeIsOver = true;
                 }
-
-                // if (!checkComplete && timeIsOver) {
-                //     gameover(result);
-                //     clearInterval(timer);
-                // }
 
             }, 1000);
         });
@@ -276,6 +288,7 @@ $(document).ready(function () {
         $(".bln").html("");
         balloons = [];
         resultValues = [];
+        selectedBalloons = [];
         checkComplete = false;
         timeIsOver = false;
     }
