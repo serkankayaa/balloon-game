@@ -12,6 +12,17 @@ $(document).ready(function () {
 
     var game2 = {
         operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 101,
+        balloonImage: 'img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [96, 16, 5, 7]
+    };
+
+    var game3 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 34,
         balloonImage: 'img/balloons2.png',
         balloonCount: 4,
@@ -21,8 +32,12 @@ $(document).ready(function () {
         balloonValues: [10, 10, 20, 4]
     };
 
-    var game = game1;
+    //all games
+    var games = [game2, game3];
+    games.sort();
+
     var balloons = [];
+    var settedBalloons = [];
     var gameHeight = $('.container').height();
     var resultValues = [];
     var result = '.resultNumber';
@@ -32,11 +47,11 @@ $(document).ready(function () {
     var animateRate = 5800;
     var timeIsOver = false;
 
-    prepareBalloons();
-    loadGameStyle();
-    setCalcArea();
+    //first game
+    var game = game1;
+    loadGame(game);
 
-    function prepareBalloons() {
+    function prepareBalloons(game) {
         for (let i = 0; i < game.balloonCount; i++) {
             var blnAlignLimit = 0;
 
@@ -44,7 +59,7 @@ $(document).ready(function () {
                 blnAlignLimit = 5;
             }
 
-            var balloonHtml = "<div class='col-md-3 mt-" + blnAlignLimit + "'>" +
+            balloonHtml = "<div class='col-md-3 mt-" + blnAlignLimit + "'>" +
                 "<div id='balloon" + i + "' class='blnShape' value='" + game.balloonValues[i] + "'><span class='text-center balloonNumber'>" + game.balloonValues[i] + "</span></div></div>";
             $(".bln").append(balloonHtml);
         }
@@ -82,37 +97,43 @@ $(document).ready(function () {
         });
     }
 
-    balloons.forEach(function (balloon) {
-        var balloonId = "#" + balloon;
-        var balloonValue;
+    function balloonClick() {
+        balloons.forEach(function (balloon) {
+            var balloonId = "#" + balloon;
+            var balloonValue;
 
-        $(balloonId).click(function () {
-            boomEffect(balloonId);
-            checkBalloonCalculate(balloonId);
-            balloonValue = $(balloonId).attr('value');
+            $(balloonId).click(function () {
 
-            $(mathOp).append(" " + balloonValue + " " + game.operator);
-
-            if (checkComplete) {
-                $(mathOp).html("");
-                $(result).html(game.resultNumber + ": Successful");
-                game = game2;
-            }
-        });
-
-
-        var timer = setInterval(function () {
-            var balloonHeight = $(balloonId).offset().top;
-
-            if (balloonHeight >= gameHeight) {
                 boomEffect(balloonId);
-                clearInterval(timer);
+                checkBalloonCalculate(balloonId);
 
-                timeIsOver = true;
-            }
-        }, 1000);
+                balloonValue = $(balloonId).attr('value');
 
-    });
+                $(mathOp).append(" " + balloonValue + " " + game.operator);
+
+                if (checkComplete) {
+                    nextGame();
+                }
+            });
+
+
+            var timer = setInterval(function () {
+                var balloonHeight = $(balloonId).offset().top;
+
+                if (balloonHeight >= gameHeight) {
+                    boomEffect(balloonId);
+                    clearInterval(timer);
+                    timeIsOver = true;
+                }
+
+                if (!checkComplete && timeIsOver) {
+                    gameover(result);
+                    clearInterval(timer);
+                }
+
+            }, 1000);
+        });
+    }
 
     function boomEffect(balloonId) {
         $(balloonId).css({
@@ -154,16 +175,17 @@ $(document).ready(function () {
     function checkBalloonCalculate(balloonId) {
         var value = $(balloonId).attr('value');
         balloonValue = parseInt(value);
-        var totalValueMulti = 1;
+        var totalValueNonSum = 1;
         var totalValue = 0;
         resultValues.push(balloonValue);
 
         for (var i = 0; i < resultValues.length; i++) {
             if (game.operator == '*') {
-                totalValueMulti *= resultValues[i];
+                totalValueNonSum *= resultValues[i];
 
-                if (totalValueMulti == game.resultNumber) {
+                if (totalValueNonSum == game.resultNumber) {
                     checkComplete = true;
+                    success(result);
                 }
             }
 
@@ -172,6 +194,7 @@ $(document).ready(function () {
 
                 if (totalValue == game.resultNumber) {
                     checkComplete = true;
+                    success(result);
                 }
             }
 
@@ -180,14 +203,16 @@ $(document).ready(function () {
 
                 if (totalValue == game.resultNumber) {
                     checkComplete = true;
+                    success(result);
                 }
             }
 
             if (game.operator == '/') {
-                totalValue /= resultValues[i];
+                totalValueNonSum /= resultValues[i];
 
-                if (totalValue == game.resultNumber) {
+                if (totalValueNonSum == game.resultNumber) {
                     checkComplete = true;
+                    success(result);
                 }
             }
         }
@@ -195,5 +220,51 @@ $(document).ready(function () {
 
     function setCalcArea() {
         $(result).html('"' + game.operator + '" &#8594; ' + game.resultNumber);
+    }
+
+    function loadGame(game) {
+        prepareBalloons(game);
+        loadGameStyle();
+        setCalcArea();
+        balloonClick();
+    }
+
+    function clearGame() {
+        $(mathOp).html(" ");
+        $(".bln").html("");
+        balloons = [];
+        resultValues = [];
+        checkComplete = false;
+        timeIsOver = false;
+    }
+
+    function nextGame() {
+        games.forEach(function (balloonGame) {
+            setTimeout(function () {
+                if (checkComplete) {
+                    clearGame();
+                    game = balloonGame;
+                    loadGame(game);
+                }
+
+            }, 1600);
+        });
+    }
+
+    function success(result) {
+        $(result).html(game.resultNumber + ": Successful");
+
+        $(result).css({
+            'color': 'chartreuse'
+        });
+    }
+
+    function gameover(result) {
+        $(result).html("Game Over ! You Failed !");
+        $(mathOp).append(" ");
+
+        $(result).css({
+            'color' : 'maroon',
+        });
     }
 });
