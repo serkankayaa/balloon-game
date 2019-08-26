@@ -71,6 +71,7 @@ $(document).ready(function () {
 
     var balloons = [];
     var gameHeight = $('.container').height();
+    var tempHeight = gameHeight;
     var resultValues = [];
     var result = '.resultNumber';
     var gamePanel = '.gamePanel';
@@ -124,11 +125,13 @@ $(document).ready(function () {
     }
 
     function moveBalloon(balloonId) {
-        $(balloonId).animate({
-            marginTop: gameHeight,
-        }, animateRate, function () {
-            timeIsOver = true;
-        });
+        if (gameHeight == tempHeight) {
+            $(balloonId).animate({
+                marginTop: gameHeight,
+            }, animateRate, function () {
+                timeIsOver = true;
+            });
+        }
     }
 
     function balloonClick() {
