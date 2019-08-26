@@ -125,13 +125,11 @@ $(document).ready(function () {
     }
 
     function moveBalloon(balloonId) {
-        if (gameHeight == tempHeight) {
-            $(balloonId).animate({
-                marginTop: gameHeight,
-            }, animateRate, function () {
-                timeIsOver = true;
-            });
-        }
+        $(balloonId).animate({
+            marginTop: gameHeight,
+        }, animateRate, function () {
+            timeIsOver = true;
+        });
     }
 
     function balloonClick() {
