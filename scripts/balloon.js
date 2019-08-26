@@ -1,9 +1,4 @@
 $(document).ready(function () {
-
-    $('.container').css({
-        'height' : '600px'
-    });
-
     var game1 = {
         operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
         resultNumber: 84,
@@ -192,6 +187,10 @@ $(document).ready(function () {
     }
 
     function loadGameStyle() {
+        $('.container').css({
+            'height' : '600px'
+        });    
+
         $(gamePanel).css({
             'border-radius': '15px',
             'height': '800px',
