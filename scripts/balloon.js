@@ -65,6 +65,10 @@ $(document).ready(function () {
         balloonValues: [20, 20, 2, 21]
     };
 
+    $('.container').css({
+        'height' : '600px'
+    });
+
     //all games
     var games = [game2, game3, game4, game5, game6];
     games.sort();
@@ -187,10 +191,6 @@ $(document).ready(function () {
     }
 
     function loadGameStyle() {
-        $('.container').css({
-            'height' : '600px'
-        });    
-
         $(gamePanel).css({
             'border-radius': '15px',
             'height': '800px',
