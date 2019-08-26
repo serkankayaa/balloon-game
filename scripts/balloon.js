@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var game = {
-        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-        resultNumber: 42,
+    var game1 = {
+        operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 84,
         balloonImage: 'img/balloons2.png',
         balloonCount: 4,
         balloonHeight: 140,
@@ -10,17 +10,33 @@ $(document).ready(function () {
         balloonValues: [12, 15, 20, 7]
     };
 
+    var game2 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 34,
+        balloonImage: 'img/balloons2.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [10, 10, 20, 4]
+    };
+
+    var game = game1;
     var balloons = [];
-    var selectedBalloons = [];
     var gameHeight = $('.container').height();
     var resultValues = [];
+    var result = '.resultNumber';
+    var gamePanel = '.gamePanel';
+    var mathOp = '.mathOp';
+    var checkComplete = false;
+    var animateRate = 5800;
+    var timeIsOver = false;
 
     prepareBalloons();
     loadGameStyle();
+    setCalcArea();
 
     function prepareBalloons() {
-        $('.resultNumber').html('"' +game.operator+'" &#8594; ' + game.resultNumber);
-
         for (let i = 0; i < game.balloonCount; i++) {
             var blnAlignLimit = 0;
 
@@ -55,26 +71,47 @@ $(document).ready(function () {
             game.internalPosition -= 160;
 
             moveBalloon(balloonId);
-            // setInterval(function () {
-            
-            // }, 1000);
         });
     }
 
     function moveBalloon(balloonId) {
         $(balloonId).animate({
             marginTop: gameHeight,
-        }, 4000);
-
+        }, animateRate, function () {
+            timeIsOver = true;
+        });
     }
 
     balloons.forEach(function (balloon) {
         var balloonId = "#" + balloon;
+        var balloonValue;
+
         $(balloonId).click(function () {
             boomEffect(balloonId);
-            selectedBalloons.push(balloon);
             checkBalloonCalculate(balloonId);
-        })
+            balloonValue = $(balloonId).attr('value');
+
+            $(mathOp).append(" " + balloonValue + " " + game.operator);
+
+            if (checkComplete) {
+                $(mathOp).html("");
+                $(result).html(game.resultNumber + ": Successful");
+                game = game2;
+            }
+        });
+
+
+        var timer = setInterval(function () {
+            var balloonHeight = $(balloonId).offset().top;
+
+            if (balloonHeight >= gameHeight) {
+                boomEffect(balloonId);
+                clearInterval(timer);
+
+                timeIsOver = true;
+            }
+        }, 1000);
+
     });
 
     function boomEffect(balloonId) {
@@ -91,21 +128,27 @@ $(document).ready(function () {
     }
 
     function loadGameStyle() {
-        $('.gamePanel').css({
+        $(gamePanel).css({
             'border-radius': '15px',
             'height': '800px',
             'background-color': 'inherit!important',
         });
 
-        $('.resultNumber').css({
-            'font-size': '35px',
+        $(result).css({
+            'font-size': '30px',
             'color': 'orange',
             'font-weight': 'bold'
-        })
+        });
+
+        $('.mathOp').css({
+            'font-size': '20px',
+            'color': 'orange',
+            'font-weight': 'bold'
+        });
 
         $('body').css({
             'cursor': 'url("img/cursor.png"), auto',
-        })
+        });
     }
 
     function checkBalloonCalculate(balloonId) {
@@ -120,7 +163,7 @@ $(document).ready(function () {
                 totalValueMulti *= resultValues[i];
 
                 if (totalValueMulti == game.resultNumber) {
-                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                    checkComplete = true;
                 }
             }
 
@@ -128,7 +171,7 @@ $(document).ready(function () {
                 totalValue += resultValues[i];
 
                 if (totalValue == game.resultNumber) {
-                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                    checkComplete = true;
                 }
             }
 
@@ -136,7 +179,7 @@ $(document).ready(function () {
                 totalValue -= resultValues[i];
 
                 if (totalValue == game.resultNumber) {
-                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                    checkComplete = true;
                 }
             }
 
@@ -144,9 +187,13 @@ $(document).ready(function () {
                 totalValue /= resultValues[i];
 
                 if (totalValue == game.resultNumber) {
-                    $('.resultNumber').html(game.resultNumber + ": Successful");
+                    checkComplete = true;
                 }
             }
         }
+    }
+
+    function setCalcArea() {
+        $(result).html('"' + game.operator + '" &#8594; ' + game.resultNumber);
     }
 });
