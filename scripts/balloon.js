@@ -1,13 +1,13 @@
 $(document).ready(function () {
     var game1 = {
-        operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
-        resultNumber: 15,
+        operator: '-', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 11,
         balloonImage: 'img/balloons2.png',
         balloonCount: 4,
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [5, 3, 20, 21]
+        balloonValues: [25, 3, 12, 2]
     };
 
     var game2 = {
@@ -29,7 +29,7 @@ $(document).ready(function () {
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [120, 3, 20, 4]
+        balloonValues: [120, 2, 20, 4]
     };
 
     var game4 = {
@@ -136,14 +136,6 @@ $(document).ready(function () {
         });
     }
 
-    function hasDuplicates(array) {
-        return (new Set(array)).size !== array.length;
-    }
-
-    function onlyUnique(value, index, self) {
-        return self.indexOf(value) === index;
-    }
-
     function balloonClick() {
         balloons.forEach(function (balloon) {
             var balloonId = "#" + balloon;
@@ -237,41 +229,48 @@ $(document).ready(function () {
     function checkBalloonCalculate(balloonId) {
         var value = $(balloonId).attr('value');
         balloonValue = parseInt(value);
-        var totalValueNonSum = 1;
-        var totalValue = 0;
+        var totalValueMulti = 1;
+        var totalValueSum = 0;
         var totalValueDivide = resultValues[0];
+        var totalValueMinus = resultValues[0];
         resultValues.push(balloonValue);
 
         for (var i = 0; i < resultValues.length; i++) {
             if (game.operator == '*') {
-                totalValueNonSum *= resultValues[i];
+                totalValueMulti *= resultValues[i];
 
-                if (totalValueNonSum == game.resultNumber) {
+                if (totalValueMulti == game.resultNumber) {
                     checkComplete = true;
                     success(result);
                 }
             }
 
             if (game.operator == '+') {
-                totalValue += resultValues[i];
+                totalValueSum += resultValues[i];
 
-                if (totalValue == game.resultNumber) {
+                if (totalValueSum == game.resultNumber) {
                     checkComplete = true;
                     success(result);
                 }
             }
 
             if (game.operator == '-') {
-                totalValue -= resultValues[i];
 
-                if (totalValue == game.resultNumber) {
+                if (resultValues[i] > resultValues[i + 1]) {
+                    totalValueMinus = totalValueMinus - resultValues[i + 1];
+                }
+
+                if (totalValueMinus == game.resultNumber) {
                     checkComplete = true;
                     success(result);
                 }
             }
 
             if (game.operator == '/') {
-                totalValueDivide = totalValueDivide / resultValues[i + 1];
+
+                if (resultValues[i] > resultValues[i + 1]) {
+                    totalValueDivide = totalValueDivide / resultValues[i + 1];
+                }
 
                 if (totalValueDivide == game.resultNumber) {
                     checkComplete = true;
@@ -336,5 +335,13 @@ $(document).ready(function () {
         $(result).css({
             'color': 'maroon',
         });
+    }
+
+    function hasDuplicates(array) {
+        return (new Set(array)).size !== array.length;
+    }
+
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
     }
 });
