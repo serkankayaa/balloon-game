@@ -7,7 +7,7 @@ $(document).ready(function () {
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [5, 3, 20, 7]
+        balloonValues: [5, 3, 20, 21]
     };
 
     var game2 = {
@@ -96,7 +96,9 @@ $(document).ready(function () {
                 blnAlignLimit = 5;
             }
 
-            balloonHtml = "<div class='col-md-3 mt-" + blnAlignLimit + "'>" +
+            var colMdString = 'col-md';
+
+            balloonHtml = "<div class='" + colMdString + "' mt-" + blnAlignLimit + "'>" +
                 "<div id='balloon" + i + "' class='blnShape' value='" + game.balloonValues[i] + "'><span class='text-center balloonNumber'>" + game.balloonValues[i] + "</span></div></div>";
             $(".bln").append(balloonHtml);
         }
@@ -269,7 +271,7 @@ $(document).ready(function () {
             }
 
             if (game.operator == '/') {
-                totalValueDivide = totalValueDivide / resultValues[i+1];
+                totalValueDivide = totalValueDivide / resultValues[i + 1];
 
                 if (totalValueDivide == game.resultNumber) {
                     checkComplete = true;
