@@ -146,8 +146,6 @@ $(document).ready(function () {
                     return;
                 }
 
-                console.log("tıklandı");
-
                 selectedBalloons.push(balloonId);
 
                 var check = hasDuplicates(selectedBalloons);
@@ -171,7 +169,7 @@ $(document).ready(function () {
             });
 
             var timer = setInterval(function () {
-                var balloonHeight = $(balloonId).offset().top;
+                var balloonHeight = $(balloonId).position().top;
 
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
