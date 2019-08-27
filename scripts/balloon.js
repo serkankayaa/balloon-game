@@ -7,7 +7,7 @@ $(document).ready(function () {
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [25, 3, 12, 2]
+        balloonValues: [11, 3, 22, 2]
     };
 
     var game2 = {
@@ -29,7 +29,7 @@ $(document).ready(function () {
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [120, 2, 20, 4]
+        balloonValues: [58, 2, 20, 4]
     };
 
     var game4 = {
@@ -96,9 +96,9 @@ $(document).ready(function () {
                 blnAlignLimit = 5;
             }
 
-            var colMdString = 'col-md';
+            var balloonClass = 'col-md mt-' + blnAlignLimit;
 
-            balloonHtml = "<div class='" + colMdString + "' mt-" + blnAlignLimit + "'>" +
+            balloonHtml = "<div class='" + balloonClass + "'>" +
                 "<div id='balloon" + i + "' class='blnShape' value='" + game.balloonValues[i] + "'><span class='text-center balloonNumber'>" + game.balloonValues[i] + "</span></div></div>";
             $(".bln").append(balloonHtml);
         }
@@ -132,6 +132,7 @@ $(document).ready(function () {
         $(balloonId).animate({
             marginTop: gameHeight,
         }, animateRate, function () {
+            //animate completed
             timeIsOver = true;
         });
     }
@@ -190,7 +191,7 @@ $(document).ready(function () {
 
                     $(result).html("You Won !");
                 }
-                
+
             }, 1000);
         });
     }
@@ -241,6 +242,7 @@ $(document).ready(function () {
         var totalValueSum = 0;
         var totalValueDivide = resultValues[0];
         var totalValueMinus = resultValues[0];
+        var resultValueExpect = 0;
         resultValues.push(balloonValue);
 
         for (var i = 0; i < resultValues.length; i++) {
@@ -265,10 +267,11 @@ $(document).ready(function () {
             if (game.operator == '-') {
 
                 if (resultValues[i] > resultValues[i + 1]) {
+                    resultValueExpect++;
                     totalValueMinus = totalValueMinus - resultValues[i + 1];
                 }
 
-                if (totalValueMinus == game.resultNumber) {
+                if (totalValueMinus == game.resultNumber && resultValueExpect > 0) {
                     checkComplete = true;
                     success(result);
                 }
@@ -277,10 +280,11 @@ $(document).ready(function () {
             if (game.operator == '/') {
 
                 if (resultValues[i] > resultValues[i + 1]) {
+                    resultValueExpect++;
                     totalValueDivide = totalValueDivide / resultValues[i + 1];
                 }
 
-                if (totalValueDivide == game.resultNumber) {
+                if (totalValueDivide == game.resultNumber && resultValueExpect > 0) {
                     checkComplete = true;
                     success(result);
                 }
@@ -293,6 +297,8 @@ $(document).ready(function () {
     }
 
     function loadGame(game) {
+        $('.bln').append('<img class="grassBarrier" src="img/grass.png" alt="">');
+
         prepareBalloons(game);
         loadGameStyle();
         setCalcArea();
