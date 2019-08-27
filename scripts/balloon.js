@@ -81,9 +81,8 @@ $(document).ready(function () {
     var gamePanel = '.gamePanel';
     var mathOp = '.mathOp';
     var checkComplete = false;
-    var animateRate = 5800;
+    var animateRate = 7150;
     var timeIsOver = false;
-    var checkAllGameFinished = false;
 
     //first game
     var game = game1;
