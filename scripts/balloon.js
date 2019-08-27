@@ -297,7 +297,7 @@ $(document).ready(function () {
     }
 
     function loadGame(game) {
-        $('.bln').append('<img class="grassBarrier" src="img/grass.png" alt="">');
+        $('.bln').append('<img class="grassBarrier img-fluid" src="img/grass.png" alt="">');
 
         prepareBalloons(game);
         loadGameStyle();
