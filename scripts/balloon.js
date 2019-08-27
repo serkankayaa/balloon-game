@@ -173,6 +173,8 @@ $(document).ready(function () {
             var timer = setInterval(function () {
                 balloonHeight = $(balloonId).offset().top;
 
+                console.log(balloonHeight);
+
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
                     clearInterval(timer);
