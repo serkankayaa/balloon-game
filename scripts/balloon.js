@@ -170,14 +170,14 @@ $(document).ready(function () {
 
             var balloonHeight;
 
-            var timer = setInterval(function () {
+            var timer = window.setInterval(function () {
                 balloonHeight = $(balloonId).offset().top;
 
                 console.log(balloonHeight);
 
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
-                    clearInterval(timer);
+                    window.clearInterval(timer);
                     timeIsOver = true;
                 }
 
