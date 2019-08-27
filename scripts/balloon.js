@@ -169,14 +169,9 @@ $(document).ready(function () {
             });
 
             var balloonHeight;
-
             var timer;
 
             timer = window.setInterval(function () {
-                balloonHeight = $(balloonId).offset().top;
-
-                console.log(balloonHeight);
-
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
                     window.clearInterval(timer);
@@ -188,6 +183,8 @@ $(document).ready(function () {
 
                     $(result).html("You Won !");
                 }
+
+                balloonHeight = $(balloonId).offset().top;
 
             }, 1000);
         });
