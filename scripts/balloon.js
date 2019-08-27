@@ -170,7 +170,9 @@ $(document).ready(function () {
 
             var balloonHeight;
 
-            var timer = window.setInterval(function () {
+            var timer;
+
+            timer = window.setInterval(function () {
                 balloonHeight = $(balloonId).offset().top;
 
                 console.log(balloonHeight);
