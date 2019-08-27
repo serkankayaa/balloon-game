@@ -1,13 +1,13 @@
 $(document).ready(function () {
     var game1 = {
         operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
-        resultNumber: 84,
+        resultNumber: 15,
         balloonImage: 'img/balloons2.png',
         balloonCount: 4,
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [12, 15, 20, 7]
+        balloonValues: [5, 3, 20, 7]
     };
 
     var game2 = {
@@ -22,14 +22,14 @@ $(document).ready(function () {
     };
 
     var game3 = {
-        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-        resultNumber: 34,
+        operator: '/', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 2,
         balloonImage: 'img/balloons2.png',
         balloonCount: 4,
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [10, 10, 20, 4]
+        balloonValues: [120, 3, 20, 4]
     };
 
     var game4 = {
@@ -81,7 +81,7 @@ $(document).ready(function () {
     var gamePanel = '.gamePanel';
     var mathOp = '.mathOp';
     var checkComplete = false;
-    var animateRate = 7150;
+    var animateRate = 10000;
     var timeIsOver = false;
 
     //first game
@@ -237,6 +237,7 @@ $(document).ready(function () {
         balloonValue = parseInt(value);
         var totalValueNonSum = 1;
         var totalValue = 0;
+        var totalValueDivide = resultValues[0];
         resultValues.push(balloonValue);
 
         for (var i = 0; i < resultValues.length; i++) {
@@ -268,9 +269,9 @@ $(document).ready(function () {
             }
 
             if (game.operator == '/') {
-                totalValueNonSum /= resultValues[i];
+                totalValueDivide = totalValueDivide / resultValues[i+1];
 
-                if (totalValueNonSum == game.resultNumber) {
+                if (totalValueDivide == game.resultNumber) {
                     checkComplete = true;
                     success(result);
                 }
