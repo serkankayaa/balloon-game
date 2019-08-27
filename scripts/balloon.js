@@ -82,7 +82,7 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
-    var animateRate = 15000;
+    var animateRate = 11000;
 
     //first game
     var game = game1;
@@ -177,6 +177,8 @@ $(document).ready(function () {
             var timer;
 
             timer = window.setInterval(function () {
+                balloonHeight = $(balloonId).offset().top;
+
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
                     window.clearInterval(timer);
@@ -188,9 +190,7 @@ $(document).ready(function () {
 
                     $(result).html("You Won !");
                 }
-
-                balloonHeight = $(balloonId).offset().top;
-
+                
             }, 1000);
         });
     }
