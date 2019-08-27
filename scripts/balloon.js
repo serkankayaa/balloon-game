@@ -161,7 +161,12 @@ $(document).ready(function () {
 
                 balloonValue = $(balloonId).attr('value');
 
-                $(mathOp).append(" " + balloonValue + " " + game.operator);
+                if (selectedBalloons.length == 1) {
+                    $(mathOp).append(balloonValue);
+                }
+                else {
+                    $(mathOp).append(" " + game.operator + " " + balloonValue);
+                }
 
                 if (checkComplete) {
                     nextGame();
