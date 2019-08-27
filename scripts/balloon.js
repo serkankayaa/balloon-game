@@ -146,6 +146,8 @@ $(document).ready(function () {
                     return;
                 }
 
+                console.log("tıklandı");
+
                 selectedBalloons.push(balloonId);
 
                 var check = hasDuplicates(selectedBalloons);
