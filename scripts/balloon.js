@@ -340,7 +340,22 @@ $(document).ready(function () {
     }
 
     function hasDuplicates(array) {
-        return (new Set(array)).size !== array.length;
+        var object = {};
+        var result = false;
+
+        array.forEach(function (item) {
+            if (!object[item])
+                object[item] = 0;
+            object[item] += 1;
+        })
+
+        for (var prop in object) {
+            if (object[prop] >= 2) {
+                result = true;
+            }
+        }
+
+        return result;
     }
 
     function onlyUnique(value, index, self) {
