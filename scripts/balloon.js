@@ -82,7 +82,7 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
-    var animateRate = 20000;
+    var animateRate = 15000;
 
     //first game
     var game = game1;
