@@ -83,6 +83,7 @@ $(document).ready(function () {
     var checkComplete = false;
     var animateRate = 5800;
     var timeIsOver = false;
+    var checkAllGameFinished = false;
 
     //first game
     var game = game1;
@@ -138,7 +139,7 @@ $(document).ready(function () {
         return (new Set(array)).size !== array.length;
     }
 
-    function onlyUnique(value, index, self) { 
+    function onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
     }
 
@@ -156,7 +157,7 @@ $(document).ready(function () {
 
                 var check = hasDuplicates(selectedBalloons);
 
-                if(check) {
+                if (check) {
                     selectedBalloons = selectedBalloons.filter(onlyUnique);
 
                     return;
@@ -181,6 +182,12 @@ $(document).ready(function () {
                     boomEffect(balloonId);
                     clearInterval(timer);
                     timeIsOver = true;
+                }
+
+                if (games.length == 0 && (checkComplete || timeIsOver)) {
+                    $(balloonId).hide();
+
+                    $(result).html("You Won !");
                 }
 
             }, 1000);
