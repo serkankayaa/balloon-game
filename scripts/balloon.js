@@ -76,101 +76,45 @@ $(document).ready(function () {
         balloonValues: [1, 1, 3]
     };
 
-    // var game1 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 2,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 3,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [1, 1, 3]
-    // };
+    var game8 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 3,
+        balloonImage: 'img/balloons3.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [2, 16, 1, 7]
+    };
 
-    // var game2 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 3,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 4,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [2, 16, 1, 7]
-    // };
+    var game9 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 4,
+        balloonImage: 'img/balloons3.png',
+        balloonCount: 4,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [2, 2, 20, 4]
+    };
 
-    // var game3 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 4,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 4,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [2, 2, 20, 4]
-    // };
-
-    // var game4 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 3,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 5,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [1, 5, 2, 21, 7]
-    // };
-
-    // var game5 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 4,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 6,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [2, 35, 2, 33, 7, 5]
-    // };
-
-    // var game6 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 3,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 5,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [1, 20, 2, 21, 17]
-    // };
-
-    // var game7 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 5,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 5,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [10, 2, 8, 3, 10]
-    // };
-
-    
-    // var game8 = {
-    //     operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
-    //     resultNumber: 4,
-    //     balloonImage: 'img/balloons3.png',
-    //     balloonCount: 5,
-    //     balloonHeight: 140,
-    //     balloonWidth: 120,
-    //     internalPosition: -5,
-    //     balloonValues: [10, 2, 8, 2, 10]
-    // };
+    var game10 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 3,
+        balloonImage: 'img/balloons3.png',
+        balloonCount: 5,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [1, 5, 2, 21, 7]
+    };
 
     $('.container').css({
         'height': '600px'
     });
 
     //all games
-    var games = [game2, game3, game4, game5, game6, game7];
+    var games = [game2, game3, game4, game5, game6, game7, game8, game9, game10];
     games.sort();
 
     var balloons = [];
@@ -218,8 +162,8 @@ $(document).ready(function () {
 
             if (balloonValue.toString().length > 2) {
                 $(balloonId + " > .balloonNumber").css({
-                    'margin' : '30%',
-                    'margin-top' : '40%',
+                    'margin': '30%',
+                    'margin-top': '40%',
                 });
             }
 
@@ -286,23 +230,28 @@ $(document).ready(function () {
             var timer;
 
             timer = window.setInterval(function () {
-                if (games.length > 0 && !checkComplete) {
-                    balloonHeight = $(balloonId).offset().top;
+                try {
+                    if (games.length > 0 && !checkComplete && balloonId.length) {
+                        balloonHeight = $(balloonId).offset().top;
+                    }
+
+                    if (balloonHeight >= gameHeight) {
+                        boomEffect(balloonId);
+                        window.clearInterval(timer);
+                        timeIsOver = true;
+                    }
+
+                    if (games.length == 0 && checkComplete) {
+                        $(balloonId).hide();
+                        window.clearInterval(timer);
+
+                        $(result).html("Congratulations You Won!");
+                    }
+                } catch (error) {
+                    if(error instanceof TypeError === true) {
+                        return;
+                    }
                 }
-
-                if (balloonHeight >= gameHeight) {
-                    boomEffect(balloonId);
-                    window.clearInterval(timer);
-                    timeIsOver = true;
-                }
-
-                if (games.length == 0 && checkComplete) {
-                    $(balloonId).hide();
-                    window.clearInterval(timer);
-
-                    $(result).html("You Won !");
-                }
-
             }, 1000);
         });
     }
@@ -342,12 +291,15 @@ $(document).ready(function () {
 
         $('body').css({
             'cursor': 'url("img/cursor.png"), auto',
-            'background-image' : 'url("../img/game-background.jpg")',
-            'background-repeat' : 'no-repeat',
-            'background-size' : 'cover',
-            'background-attachment': 'fixed', 
-            'width' : '100%',
-            'height' : 'auto'
+            'background-image': 'url("../img/game-background.jpg")',
+            'background-repeat': 'no-repeat',
+            'background-attachment': 'fixed',
+            'width': '100%',
+            'height': 'auto',
+            '-webkit-background-size': 'cover',
+            '-moz-background-size': 'cover',
+            '-o-background-size': 'cover',
+            'background-size': 'cover',
         });
     }
 
@@ -440,6 +392,8 @@ $(document).ready(function () {
                     loadGame(game);
                     games.shift();
                 }
+
+                console.log(games);
 
                 if (!checkComplete && timeIsOver) {
                     gameover(result);
