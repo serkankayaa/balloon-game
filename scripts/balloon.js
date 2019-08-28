@@ -152,7 +152,7 @@ $(document).ready(function () {
         balloonWidth: 120,
         internalPosition: -5,
         balloonValues: [10, 2, 8, 2, 10]
-    };
+    }; //s
 
     $('.container').css({
         'height': '600px'
