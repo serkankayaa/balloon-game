@@ -131,12 +131,35 @@ $(document).ready(function () {
         balloonValues: [1, 20, 2, 21, 17]
     };
 
+    var game7 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 5,
+        balloonImage: 'img/balloons3.png',
+        balloonCount: 5,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [10, 2, 8, 17]
+    };
+
+    
+    var game8 = {
+        operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+        resultNumber: 4,
+        balloonImage: 'img/balloons3.png',
+        balloonCount: 5,
+        balloonHeight: 140,
+        balloonWidth: 120,
+        internalPosition: -5,
+        balloonValues: [10, 2, 8, 2, 10]
+    };
+
     $('.container').css({
         'height': '600px'
     });
 
     //all games
-    var games = [game2, game3, game4, game5, game6];
+    var games = [game2, game3, game4, game5, game6, game7, game8];
     games.sort();
 
     var balloons = [];
@@ -148,7 +171,7 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
-    var animateRate = 7500;
+    var animateRate = 11000;
 
     //first game
     var game = game1;
