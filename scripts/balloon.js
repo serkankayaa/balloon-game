@@ -260,12 +260,16 @@ $(document).ready(function () {
                     boomEffect(balloonId);
                     window.clearInterval(timer);
                     timeIsOver = true;
+
+                    window.location.reload();
                 }
 
                 if (games.length == 0 && checkComplete) {
                     $(balloonId).hide();
                     window.clearInterval(timer);
                     $(result).html("You Won !");
+
+                    window.location.reload();
                 }
 
             }, 1000);
