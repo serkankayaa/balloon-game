@@ -148,7 +148,7 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
-    var animateRate = 11000;
+    var animateRate = 7500;
 
     //first game
     var game = game1;
