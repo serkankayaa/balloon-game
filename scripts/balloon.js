@@ -139,7 +139,7 @@ $(document).ready(function () {
         balloonHeight: 140,
         balloonWidth: 120,
         internalPosition: -5,
-        balloonValues: [10, 2, 8, 17]
+        balloonValues: [10, 2, 8, 3, 10]
     };
 
     
