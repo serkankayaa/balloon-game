@@ -114,6 +114,15 @@ $(document).ready(function () {
             var balloonId = "#" + balloon;
             blnPosition = game.internalPosition + "px";
 
+            var balloonValue = $(balloonId).attr("value");
+
+            if (balloonValue.toString().length > 2) {
+                $(balloonId + " > .balloonNumber").css({
+                    'margin' : '30%',
+                    'margin-top' : '40%',
+                });
+            }
+
             $(balloonId).css({
                 'background-image': 'url("' + game.balloonImage + '")',
                 'background-repeat': 'no-repeat',
@@ -178,7 +187,9 @@ $(document).ready(function () {
             var timer;
 
             timer = window.setInterval(function () {
-                balloonHeight = $(balloonId).offset().top;
+                if (games.length != 0 && !checkComplete) {
+                    balloonHeight = $(balloonId).offset().top;
+                }
 
                 if (balloonHeight >= gameHeight) {
                     boomEffect(balloonId);
@@ -186,9 +197,9 @@ $(document).ready(function () {
                     timeIsOver = true;
                 }
 
-                if (games.length == 0 && (checkComplete || timeIsOver)) {
+                if (games.length == 0 && checkComplete) {
                     $(balloonId).hide();
-
+                    window.clearInterval(timer);
                     $(result).html("You Won !");
                 }
 
