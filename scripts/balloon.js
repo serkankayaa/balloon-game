@@ -4,7 +4,10 @@ $(document).ready(function () {
     });
 
     //all games
-    var games = [game2, game3, game4, game5, game6, game7, game8, game9, game10];
+    var games = [game2, game3, game4,
+        game5, game6, game7,
+        game8, game9, game10];
+
     games.sort();
 
     var balloons = [];
@@ -16,14 +19,19 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
-    var animateRate = 11000;
 
     //first game
     var game = game1;
     loadGame(game);
 
     function prepareBalloons(game) {
-        for (let i = 0; i < game.balloonCount; i++) {
+        if (game === undefined) {
+            return;
+        }
+
+        var balloonCount = game.balloonValues.length;
+
+        for (let i = 0; i < balloonCount; i++) {
             var blnAlignLimit = 0;
 
             if (i % 2 == 0) {
@@ -74,7 +82,7 @@ $(document).ready(function () {
     function moveBalloon(balloonId) {
         $(balloonId).animate({
             marginTop: gameHeight,
-        }, animateRate, function () {
+        }, gameOption.animateRate, function () {
             //animate completed
             timeIsOver = true;
         });
@@ -92,9 +100,9 @@ $(document).ready(function () {
 
                 selectedBalloons.push(balloonId);
 
-                var check = hasDuplicates(selectedBalloons);
+                var checkMultipleClick = hasDuplicates(selectedBalloons);
 
-                if (check) {
+                if (checkMultipleClick) {
                     selectedBalloons = selectedBalloons.filter(onlyUnique);
                     return;
                 }
@@ -138,7 +146,7 @@ $(document).ready(function () {
                         $(result).html("Congratulations You Won!");
                     }
                 } catch (error) {
-                    if(error instanceof TypeError === true) {
+                    if (error instanceof TypeError === true) {
                         return;
                     }
                 }
@@ -157,7 +165,7 @@ $(document).ready(function () {
         if (!checkComplete) {
             setTimeout(function () {
                 $(balloonId).hide();
-            }, 900);
+            }, gameOption.stopBoomDuration);
         }
     }
 
@@ -173,7 +181,7 @@ $(document).ready(function () {
             'font-weight': 'bold'
         });
 
-        $('.mathOp').css({
+        $(mathOp).css({
             'font-size': '20px',
             'color': 'orange',
             'font-weight': 'bold'
@@ -288,12 +296,12 @@ $(document).ready(function () {
                     clearInterval(timer);
                 }
 
-            }, 2000);
+            }, gameOption.beforeNextGame);
         }
     }
 
     function success(result) {
-        $(result).html(game.resultNumber + ": Successful");
+        $(result).html(game.resultNumber + ": Successful &#9989;");
 
         $(result).css({
             'color': 'chartreuse'

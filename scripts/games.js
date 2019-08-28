@@ -1,8 +1,15 @@
+var balloonsImage = 'img/balloons3.png';
+
+var gameOption = {
+    animateRate: 11000,
+    beforeNextGame: 2000,
+    stopBoomDuration: 900,
+};
+
 var game1 = {
-    operator: '-', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '-',
     resultNumber: 6,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 3,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -10,10 +17,9 @@ var game1 = {
 };
 
 var game2 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 101,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 4,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -21,10 +27,9 @@ var game2 = {
 };
 
 var game3 = {
-    operator: '/', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '/',
     resultNumber: 2,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 4,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -32,10 +37,9 @@ var game3 = {
 };
 
 var game4 = {
-    operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '*',
     resultNumber: 120,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 5,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -43,10 +47,9 @@ var game4 = {
 };
 
 var game5 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 55,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 6,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -54,10 +57,9 @@ var game5 = {
 };
 
 var game6 = {
-    operator: '*', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '*',
     resultNumber: 400,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 5,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -65,10 +67,9 @@ var game6 = {
 };
 
 var game7 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 2,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 3,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -76,10 +77,9 @@ var game7 = {
 };
 
 var game8 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 3,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 4,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -87,10 +87,9 @@ var game8 = {
 };
 
 var game9 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 4,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 4,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
@@ -98,10 +97,9 @@ var game9 = {
 };
 
 var game10 = {
-    operator: '+', //Plus = +, Minus = -, Divide = /, Multiply = * 
+    operator: '+',
     resultNumber: 3,
-    balloonImage: 'img/balloons3.png',
-    balloonCount: 5,
+    balloonImage: balloonsImage,
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
