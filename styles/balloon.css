@@ -1,15 +1,11 @@
-body {
+/* body {
     background-image: url('../img/game-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed; 
     width: 100%;
     height: auto;
-}
-
-.gamePanel {
-    background-color: inherit!important;
-}
+} */
 
 .calcArea {
     background-color: darkcyan;

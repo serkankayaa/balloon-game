@@ -152,7 +152,7 @@ $(document).ready(function () {
         balloonWidth: 120,
         internalPosition: -5,
         balloonValues: [10, 2, 8, 2, 10]
-    }; //s
+    };
 
     $('.container').css({
         'height': '600px'
@@ -315,6 +315,8 @@ $(document).ready(function () {
     }
 
     function loadGameStyle() {
+
+
         $(gamePanel).css({
             'border-radius': '15px',
             'height': '800px',
@@ -335,6 +337,12 @@ $(document).ready(function () {
 
         $('body').css({
             'cursor': 'url("img/cursor.png"), auto',
+            'background-image' : 'url("../img/game-background.jpg")',
+            'background-repeat' : 'no-repeat',
+            'background-size' : 'cover',
+            'background-attachment': 'fixed', 
+            'width' : '100%',
+            'height' : 'auto'
         });
     }
 
