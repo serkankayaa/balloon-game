@@ -28,6 +28,7 @@
     margin: 0 auto;
     float: none;
     height: 200px;
+    cursor: pointer;
 }
 
 .successBox h5 {
@@ -69,6 +70,7 @@
     margin: 0 auto;
     float: none;
     height: 200px;
+    cursor: pointer;
 }
 
 .failedBox h5 {

@@ -4,9 +4,7 @@ $(document).ready(function () {
     });
 
     //all games
-    var games = [game2, game3, game4,
-                 game5, game6, game7,
-                 game8, game9, game10];
+    var games = [game2];
 
     games.sort(function (a, b) {
         return a.degreeOfDifficulty - b.degreeOfDifficulty;
@@ -21,6 +19,7 @@ $(document).ready(function () {
     var mathOp = '.mathOp';
     var checkComplete = false;
     var timeIsOver = false;
+    var timeCounter = 0;
 
     //first game
     var game = game1;
@@ -98,7 +97,6 @@ $(document).ready(function () {
         balloons.forEach(function (balloon) {
             var balloonId = "#" + balloon;
             var balloonValue;
-
             $(balloonId).click(function () {
                 if (checkComplete) {
                     return;
@@ -130,21 +128,9 @@ $(document).ready(function () {
                 }
 
                 if (games.length == 0 && checkComplete) {
-                    $('.balloonCol').remove();
-                    $('.bln').attr("class", "row bln");
-
-                    var successHtml = '<div class="card successBox mt-5">';
-
-                    successHtml += '<div class="card-body">';
-                    successHtml += '<h5 class="card-title text-center">Success 🎈</h5>';
-                    successHtml += '<p class="card-text text-center">Congratulations. You Won.</p>';
-                    successHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
-                    successHtml += '</div></div>';
-
-                    $('.bln').append(successHtml);
-
-                    $('.successBox').hide();
-                    $('.successBox').show('slow');
+                    setTimeout(function () {
+                        setFinishBox('.successBox', 'Success 🎈', 'Congratulations. You Won.');
+                    }, 1200);
                 }
             });
 
@@ -161,22 +147,7 @@ $(document).ready(function () {
                         timeIsOver = true;
                         boomEffect(balloonId);
                         window.clearInterval(timer);
-
-                        $('.balloonCol').remove();
-                        $('.bln').attr("class", "row bln");
-
-                        var failedHtml = '<div class="card failedBox mt-5">';
-
-                        failedHtml += '<div class="card-body">';
-                        failedHtml += '<h5 class="card-title text-center">Failed 💥</h5>';
-                        failedHtml += '<p class="card-text text-center">You failed. Balloons exploded !</p>';
-                        failedHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
-                        failedHtml += '</div></div>';
-
-                        $('.bln').append(failedHtml);
-
-                        $('.failedBox').hide();
-                        $('.failedBox').show('slow');
+                        timeCounter++;
                     }
 
                     if (games.length == 0 && checkComplete) {
@@ -205,9 +176,34 @@ $(document).ready(function () {
 
         if (!checkComplete) {
             setTimeout(function () {
-                $(balloonId).hide();
+                $(balloonId).remove();
             }, gameOption.stopBoomDuration);
         }
+
+        if (timeCounter == 1) {
+            setTimeout(function () {
+                setFinishBox('.failedBox', 'Failed 💥', 'You failed. Balloons exploded !');
+            }, 2000);
+        }
+    }
+
+    function setFinishBox(boxClass, messageTitle, message) {
+        $('.balloonCol').remove();
+        $('.bln').attr("class", "row bln");
+
+        var boxClassNotDot = boxClass.slice(1);
+        var html = "<div class='card " + boxClassNotDot + " mt-5'>";
+
+        html += '<div class="card-body">';
+        html += '<h5 class="card-title text-center">' + messageTitle + '</h5>';
+        html += '<p class="card-text text-center">' + message + '</p>';
+        html += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
+        html += '</div></div>';
+
+        $('.bln').append(html);
+
+        $(boxClass).hide();
+        $(boxClass).slideToggle('slow');
     }
 
     function loadGameStyle() {
@@ -332,7 +328,6 @@ $(document).ready(function () {
                 }
 
                 if (!checkComplete && timeIsOver) {
-                    gameover(result);
                     clearInterval(timer);
                 }
 
@@ -345,15 +340,6 @@ $(document).ready(function () {
 
         $(result).css({
             'color': 'chartreuse'
-        });
-    }
-
-    function gameover(result) {
-        $(result).html("Game Over ! You Failed !");
-        $(mathOp).append(" ");
-
-        $(result).css({
-            'color': 'maroon',
         });
     }
 
