@@ -4,7 +4,9 @@ $(document).ready(function () {
     });
 
     //all games
-    var games = [game2, game3, game4, game5, game6, game7, game8];
+    var games = [game2, game3, game4,
+                 game5, game6, game7,
+                 game8, game9, game10];
 
     games.sort(function (a, b) {
         return a.degreeOfDifficulty - b.degreeOfDifficulty;
@@ -156,27 +158,25 @@ $(document).ready(function () {
                     }
 
                     if (balloonHeight >= gameHeight) {
+                        timeIsOver = true;
                         boomEffect(balloonId);
                         window.clearInterval(timer);
-                        timeIsOver = true;
 
-                        if (timeIsOver) {
-                            $('.balloonCol').remove();
-                            $('.bln').attr("class", "row bln");
+                        $('.balloonCol').remove();
+                        $('.bln').attr("class", "row bln");
 
-                            var failedHtml = '<div class="card failedBox mt-5">';
+                        var failedHtml = '<div class="card failedBox mt-5">';
 
-                            failedHtml += '<div class="card-body">';
-                            failedHtml += '<h5 class="card-title text-center">Failed 💥</h5>';
-                            failedHtml += '<p class="card-text text-center">You failed. Balloons exploded !</p>';
-                            failedHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
-                            failedHtml += '</div></div>';
+                        failedHtml += '<div class="card-body">';
+                        failedHtml += '<h5 class="card-title text-center">Failed 💥</h5>';
+                        failedHtml += '<p class="card-text text-center">You failed. Balloons exploded !</p>';
+                        failedHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
+                        failedHtml += '</div></div>';
 
-                            $('.bln').append(failedHtml);
+                        $('.bln').append(failedHtml);
 
-                            $('.failedBox').hide();
-                            $('.failedBox').show('slow');
-                        }
+                        $('.failedBox').hide();
+                        $('.failedBox').show('slow');
                     }
 
                     if (games.length == 0 && checkComplete) {
