@@ -13,7 +13,8 @@ var game1 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [9, 5, 3]
+    balloonValues: [9, 5, 3],
+    degreeOfDifficulty: 2   // Degree of Difficulty  1: Easy, 2: Medium, 3: Hard
 };
 
 var game2 = {
@@ -23,7 +24,8 @@ var game2 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [96, 16, 5, 7]
+    balloonValues: [96, 16, 5, 7],
+    degreeOfDifficulty: 2,
 };
 
 var game3 = {
@@ -33,7 +35,8 @@ var game3 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [58, 2, 20, 4]
+    balloonValues: [58, 2, 20, 4],
+    degreeOfDifficulty: 1,
 };
 
 var game4 = {
@@ -43,7 +46,8 @@ var game4 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [12, 5, 2, 21, 7]
+    balloonValues: [12, 5, 2, 21, 7],
+    degreeOfDifficulty: 3,
 };
 
 var game5 = {
@@ -53,7 +57,8 @@ var game5 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [22, 35, 7, 33, 7, 5]
+    balloonValues: [22, 35, 7, 33, 7, 5],
+    degreeOfDifficulty: 2,
 };
 
 var game6 = {
@@ -63,7 +68,8 @@ var game6 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [20, 20, 2, 21, 17]
+    balloonValues: [20, 20, 2, 21, 17],
+    degreeOfDifficulty: 2,
 };
 
 var game7 = {
@@ -73,7 +79,8 @@ var game7 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [1, 1, 3]
+    balloonValues: [1, 1, 3],
+    degreeOfDifficulty: 1,
 };
 
 var game8 = {
@@ -83,7 +90,8 @@ var game8 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [2, 16, 1, 7]
+    balloonValues: [2, 16, 1, 7],
+    degreeOfDifficulty: 1,
 };
 
 var game9 = {
@@ -93,7 +101,8 @@ var game9 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [2, 2, 20, 4]
+    balloonValues: [2, 2, 20, 4],
+    degreeOfDifficulty: 1,
 };
 
 var game10 = {
@@ -103,5 +112,6 @@ var game10 = {
     balloonHeight: 140,
     balloonWidth: 120,
     internalPosition: -5,
-    balloonValues: [1, 5, 2, 21, 7]
+    balloonValues: [1, 5, 2, 21, 7],
+    degreeOfDifficulty: 1,
 };

@@ -20,3 +20,68 @@
     left: 0;
     bottom: 0;
 }
+
+.successBox {
+    width: 18rem;
+    background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
+    border-radius: 10%;
+    margin: 0 auto;
+    float: none;
+    height: 200px;
+}
+
+.successBox h5 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.successBox p {
+    font-family: 'Indie Flower', cursive;
+    font-size: 19px;
+    font-weight: bold;
+    color: green;
+}
+
+.button-box {
+    position: absolute;
+    background: mediumaquamarine;
+    width: 50%;
+    height: 15%;
+    border-radius: 20px;
+    top: 73%;
+    left: 25%;
+    outline: 0;
+    border: none;
+    transition: all .5s ease-in-out;
+  }
+
+  .button-box h1 {
+    font-size: 18px;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
+  }
+
+  .failedBox {
+    width: 18rem;
+    background: tomato;
+    border-radius: 10%;
+    margin: 0 auto;
+    float: none;
+    height: 200px;
+}
+
+.failedBox h5 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.failedBox p {
+    font-family: 'Indie Flower', cursive;
+    font-size: 19px;
+    font-weight: bold;
+    color: cornsilk;
+}
+
+

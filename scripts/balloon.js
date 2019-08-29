@@ -4,11 +4,11 @@ $(document).ready(function () {
     });
 
     //all games
-    var games = [game2, game3, game4,
-        game5, game6, game7,
-        game8, game9, game10];
+    var games = [game2, game3, game4, game5, game6, game7, game8];
 
-    games.sort();
+    games.sort(function (a, b) {
+        return a.degreeOfDifficulty - b.degreeOfDifficulty;
+    });
 
     var balloons = [];
     var resultValues = [];
@@ -24,6 +24,10 @@ $(document).ready(function () {
     var game = game1;
     loadGame(game);
 
+    $(document).on("click", "#btnPlayAgain", function () {
+        window.location.reload();
+    });
+
     function prepareBalloons(game) {
         if (game === undefined) {
             return;
@@ -38,7 +42,7 @@ $(document).ready(function () {
                 blnAlignLimit = 5;
             }
 
-            var balloonClass = 'col-md mt-' + blnAlignLimit;
+            var balloonClass = 'col-md balloonCol mt-' + blnAlignLimit;
 
             balloonHtml = "<div class='" + balloonClass + "'>" +
                 "<div id='balloon" + i + "' class='blnShape' value='" + game.balloonValues[i] + "'><span class='text-center balloonNumber'>" + game.balloonValues[i] + "</span></div></div>";
@@ -122,12 +126,30 @@ $(document).ready(function () {
                 if (checkComplete) {
                     nextGame();
                 }
+
+                if (games.length == 0 && checkComplete) {
+                    $('.balloonCol').remove();
+                    $('.bln').attr("class", "row bln");
+
+                    var successHtml = '<div class="card successBox mt-5">';
+
+                    successHtml += '<div class="card-body">';
+                    successHtml += '<h5 class="card-title text-center">Success 🎈</h5>';
+                    successHtml += '<p class="card-text text-center">Congratulations. You Won.</p>';
+                    successHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
+                    successHtml += '</div></div>';
+
+                    $('.bln').append(successHtml);
+
+                    $('.successBox').hide();
+                    $('.successBox').show('slow');
+                }
             });
 
             var balloonHeight;
             var timer;
 
-            timer = window.setInterval(function () {
+            timer = setInterval(function () {
                 try {
                     if (games.length > 0 && !checkComplete && balloonId.length) {
                         balloonHeight = $(balloonId).offset().top;
@@ -137,12 +159,31 @@ $(document).ready(function () {
                         boomEffect(balloonId);
                         window.clearInterval(timer);
                         timeIsOver = true;
+
+                        if (timeIsOver) {
+                            $('.balloonCol').remove();
+                            $('.bln').attr("class", "row bln");
+
+                            var failedHtml = '<div class="card failedBox mt-5">';
+
+                            failedHtml += '<div class="card-body">';
+                            failedHtml += '<h5 class="card-title text-center">Failed 💥</h5>';
+                            failedHtml += '<p class="card-text text-center">You failed. Balloons exploded !</p>';
+                            failedHtml += '<button class="button-box mt-2" id="btnPlayAgain"><h1 class="green">Play Again</h1></button>';
+                            failedHtml += '</div></div>';
+
+                            $('.bln').append(failedHtml);
+
+                            $('.failedBox').hide();
+                            $('.failedBox').show('slow');
+                        }
                     }
 
                     if (games.length == 0 && checkComplete) {
+                        //if game successfuly ended
                         $(balloonId).hide();
-                        window.clearInterval(timer);
-
+                        clearInterval(timer);
+                        balloons = [];
                         $(result).html("Congratulations You Won!");
                     }
                 } catch (error) {
@@ -264,7 +305,6 @@ $(document).ready(function () {
 
     function loadGame(game) {
         $('.bln').append('<img class="grassBarrier img-fluid" src="img/grass.png" alt="">');
-
         prepareBalloons(game);
         loadGameStyle();
         setCalcArea();
